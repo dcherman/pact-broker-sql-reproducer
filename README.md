@@ -24,7 +24,7 @@ The restore script will update the test_results to be massive in order to avoid 
 ```sh
 
 docker-compose build
-docker-compose run ./restore.sh
+docker-compose run pact ./restore.sh
 docker-compose-up
 
 curl -s http://localhost:8080/pacticipants/Example%20App/versions/7bd4d9173522826dc3e8704fd62dde0424f4c827

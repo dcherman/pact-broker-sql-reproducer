@@ -1,0 +1,32 @@
+version: "3"
+services:
+  pact:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      PACT_BROKER_DATABASE_USERNAME: pact
+      PACT_BROKER_DATABASE_PASSWORD: reproducer
+      PACT_BROKER_DATABASE_HOST: postgres
+      PACT_BROKER_DATABASE_NAME: pact
+      PACT_BROKER_LOG_LEVEL: DEBUG
+      DATABASE_URL: postgres://pact:reproducer@db/pact
+    ports:
+    - 8080:80
+    depends_on:
+      - wait-for-postgres
+  wait-for-postgres:
+    image: jwilder/dockerize:latest@sha256:b4da07ad265d2dd83fc91a73f56df54def78ba3db5c4fb74cbb9b7e79b7b3c58
+    command: dockerize -wait tcp://postgres:5432
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:11
+    environment:
+      POSTGRES_PASSWORD: reproducer
+      POSTGRES_USER: pact
+      POSTGRES_DB: pact
+    volumes:
+      - data:/var/lib/postgresql/data
+volumes:
+  data:

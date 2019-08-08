@@ -56,7 +56,7 @@ app = ProfiledPactBrokerApp.new do | config |
   #       .order(:id)
   #       .last
   #   end
-  end
+  # end
 end
 
 PactBroker.configuration.load_from_database!

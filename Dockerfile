@@ -1,4 +1,4 @@
-FROM dius/pact-broker
+FROM dius/pact-broker:2.34.0-1
 
 WORKDIR /home/app/pact_broker
 
